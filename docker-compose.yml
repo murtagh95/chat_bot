@@ -1,0 +1,50 @@
+version: '3'
+services:
+  server:
+    container_name: server
+    build: .
+    tty: true
+    environment:
+      APP_HOST: localhost
+      APP_MODULE: "app.main:app"
+    env_file:
+      - .env
+    command: sh -c "./entrypoint.sh"
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - ./app:/app/app
+
+  postgres:
+    container_name: postgres
+    image: "postgres:12"
+    ports:
+      - "5432:5432"
+    env_file: .env
+    volumes:
+      - "my-db:/var/lib/postgresql/data"
+    restart: always
+
+  nginx:
+    container_name: nginx
+    image: nginx:stable-alpine
+    volumes:
+      - .:/app
+      - ./conf/nginx/:/etc/nginx/templates/
+      - ./public:/opt/services/public
+      - ./media:/opt/services/media
+    environment:
+      APP_PORT: ${APP_PORT}
+      SERVER_NAME: ${SERVER_NAME}
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    restart: always
+    links:
+      - "server:server"
+    depends_on:
+      - server
+
+# Names our volume
+volumes:
+  my-db:
