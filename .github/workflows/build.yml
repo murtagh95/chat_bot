@@ -20,7 +20,7 @@ jobs:
       run: |
         pip install poetry
         poetry config virtualenvs.create false
-        make init
+        poetry install
     - name: Test with pytest
       run: |
         make test
