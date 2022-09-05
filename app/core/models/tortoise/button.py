@@ -10,10 +10,14 @@ class Button(Model):
     text = fields.TextField(null=False)
     value = fields.CharField(max_length=200, null=False)
     message = fields.ForeignKeyField(
-        "models.Message", related_name="message_button")
+        "models.Message",
+        related_name="message_button",
+        null=True
+    )
     carousel = fields.ForeignKeyField(
         "models.Carousel",
-        related_name="carousel"
+        related_name="carousel",
+        null=True
     )
 
     class Meta:
