@@ -11,12 +11,12 @@ class Button(Model):
     value = fields.CharField(max_length=200, null=False)
     message = fields.ForeignKeyField(
         "models.Message",
-        related_name="message_button",
+        related_name="button_message",
         null=True
     )
-    carousel = fields.ForeignKeyField(
-        "models.Carousel",
-        related_name="carousel",
+    card = fields.ForeignKeyField(
+        "models.Card",
+        related_name="button_list_card",
         null=True
     )
 
