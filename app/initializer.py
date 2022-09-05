@@ -34,4 +34,7 @@ def init_routers(app: FastAPI):
     :return:
     """
     from app.core.routers import hello
+    from app.core.routers import message
+
     app.include_router(router=hello.router, prefix="/hello", tags=["hello"])
+    app.include_router(router=message.router, prefix="/message", tags=["message"])
