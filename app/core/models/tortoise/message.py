@@ -19,7 +19,7 @@ class MessageEnum(str, Enum):
 class Message(Model):
     """" Message model """
     id = fields.IntField(pk=True, index=True)
-    currency: MessageEnum = fields.CharEnumField(
+    type: MessageEnum = fields.CharEnumField(
         MessageEnum,
         default=MessageEnum.TEXT_ONLY
     )
