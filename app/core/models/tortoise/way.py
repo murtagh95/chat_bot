@@ -3,6 +3,9 @@
 from tortoise import Model, fields
 from tortoise.contrib.pydantic import pydantic_model_creator
 
+# Models
+# from app.core.models.tortoise.message import Message
+
 
 class Way(Model):
     """" Way model """

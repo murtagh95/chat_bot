@@ -6,6 +6,10 @@ from tortoise.contrib.pydantic import pydantic_model_creator
 # Python
 from enum import Enum
 
+# Models
+from app.core.models.tortoise.button import Button
+from app.core.models.tortoise.card import Card
+
 
 class MessageEnum(str, Enum):
     """ Enum of the different types of messages that can exist """
@@ -24,6 +28,9 @@ class Message(Model):
         default=MessageEnum.TEXT_ONLY
     )
     text = fields.TextField(null=False)
+    url = fields.CharField(max_length=200, null=True, default='')
+    button_message: fields.ReverseRelation["Button"]
+    card_message: fields.ReverseRelation["Card"]
 
     class Meta:
         """ Meta """

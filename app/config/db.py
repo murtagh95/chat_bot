@@ -7,9 +7,8 @@ from app.config.cfg import IS_TEST
 BASE_DB_MODELS = "app.core.models.tortoise"
 DB_MODELS = [
     f"{BASE_DB_MODELS}.message",
-    f"{BASE_DB_MODELS}.carousel",
+    f"{BASE_DB_MODELS}.card",
     f"{BASE_DB_MODELS}.button",
-    f"{BASE_DB_MODELS}.image",
     f"{BASE_DB_MODELS}.way"
 ]
 POSTGRES_DB_URL = "postgres://{postgres_user}:{postgres_password}@" \
