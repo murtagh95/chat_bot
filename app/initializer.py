@@ -6,7 +6,7 @@ from tortoise.contrib.starlette import register_tortoise
 
 # Config
 from app.config import tortoise_config
-from app.config.static import add_static
+# from app.config.static import add_static
 
 
 def init(app: FastAPI):
@@ -16,7 +16,7 @@ def init(app: FastAPI):
     """
     init_routers(app)
     init_db(app)
-    add_static(app)
+    # add_static(app)
 
 
 def init_db(app: FastAPI):
