@@ -32,8 +32,8 @@ services:
     volumes:
       - .:/app
       - ./conf/nginx/:/etc/nginx/templates/
-      - ./public:/opt/services/public
-      - ./media:/opt/services/media
+      - ./app/public:/opt/services/public
+      - ./app/media:/opt/services/media
     environment:
       APP_PORT: ${APP_PORT}
       SERVER_NAME: ${SERVER_NAME}
