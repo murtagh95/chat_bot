@@ -67,6 +67,10 @@ To get a local copy up and running follow these simple example steps.
    cp .env.example .env
    ```
    - Modify the variables as you consider necessary.
+4. Execute the following command to activate the git hooks
+   ```sh
+   pre-commit install
+   ```
 
 
 ### Run Locally
