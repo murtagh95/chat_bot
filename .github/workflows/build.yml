@@ -16,6 +16,10 @@ jobs:
         python_version: [3.10.6]
     env:
       PIP_DISABLE_PIP_VERSION_CHECK: on
+      SECRET: example@example.com
+      EMAIL: 'example@example.com'
+      EMAIL_PASS: 'example@example.com'
+      BASE_URL: 'http:/localhost:8080'
 
     steps:
     - uses: actions/checkout@v1
@@ -42,7 +46,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: .venv
-        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        key: venv-${{ runner.os }}-${{ hashFiles('**/pyproject.toml') }}
 
     #----------------------------------------------
     # install dependencies if cache does not exist
@@ -50,12 +54,6 @@ jobs:
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: poetry install --no-interaction --no-root
-
-    #----------------------------------------------
-    # install your root project, if required
-    #----------------------------------------------
-    - name: Install library
-      run: poetry install --no-interaction
 
     #----------------------------------------------
     # Run tests

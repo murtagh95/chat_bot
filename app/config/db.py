@@ -4,7 +4,17 @@ from pydantic import Field
 from app.config.base import BaseSettings
 from app.config.cfg import IS_TEST
 
-DB_MODELS = ["app.core.models.tortoise"]
+BASE_DB_MODELS = "app.core.models.tortoise"
+DB_MODELS = [
+    f"{BASE_DB_MODELS}.business",
+    f"{BASE_DB_MODELS}.product",
+    f"{BASE_DB_MODELS}.job",
+    f"{BASE_DB_MODELS}.user",
+    f"{BASE_DB_MODELS}.message",
+    f"{BASE_DB_MODELS}.card",
+    f"{BASE_DB_MODELS}.button",
+    f"{BASE_DB_MODELS}.way"
+]
 POSTGRES_DB_URL = "postgres://{postgres_user}:{postgres_password}@" \
                   "{postgres_host}:{postgres_port}/{postgres_db}"
 SQLITE_DB_URL = "sqlite://:memory:"

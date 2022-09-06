@@ -1,7 +1,12 @@
+# FastAPI
 from fastapi import FastAPI
+
+# Tortoise
 from tortoise.contrib.starlette import register_tortoise
 
+# Config
 from app.config import tortoise_config
+# from app.config.static import add_static
 
 
 def init(app: FastAPI):
@@ -11,6 +16,7 @@ def init(app: FastAPI):
     """
     init_routers(app)
     init_db(app)
+    # add_static(app)
 
 
 def init_db(app: FastAPI):
@@ -34,4 +40,9 @@ def init_routers(app: FastAPI):
     :return:
     """
     from app.core.routers import hello
+    from app.core.routers import user_router
+    from app.core.routers import message
+
     app.include_router(router=hello.router, prefix="/hello", tags=["hello"])
+    app.include_router(router=user_router.router, prefix="/user", tags=["user"])
+    app.include_router(router=message.router, prefix="/message", tags=["message"])

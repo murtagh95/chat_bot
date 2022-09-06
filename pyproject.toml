@@ -13,6 +13,12 @@ pydantic = "^1.9.2"
 asyncpg = "^0.26.0"
 loguru = "^0.6.0"
 uvicorn = "^0.18.3"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+fastapi-mail = "^1.1.4"
+PyJWT = "^2.4.0"
+python-multipart = "^0.0.5"
+aiofiles = "^22.1.0"
+Pillow = "^9.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
