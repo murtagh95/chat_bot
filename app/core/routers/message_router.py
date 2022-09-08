@@ -29,8 +29,6 @@ async def get_message_in_pydantic(message: Message) \
         list_button = [
             ButtonPydantic(text=b.text, value=b.value) for b in buttons_messages
         ]
-        print('\033[96m' + f'Message: {message}' + '\033[0m')
-        print('\033[96m' + f'{list_button}' + '\033[0m')
         return MessageListOfButtons(
             id=message.id,
             type=message.type,
@@ -77,8 +75,6 @@ async def create_message(message: MessagePydantic):
             value=message.value_button,
             card=card
         )
-    # new_message = await Message.filter(id=new_message.id).prefetch_related(
-    #     "message_image").first()
     new_message = await message_pydantic.from_tortoise_orm(new_message)
     return new_message
 
