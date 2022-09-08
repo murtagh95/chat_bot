@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field
 
 
 class ButtonPydantic(BaseModel):
+    """ Button Pydantic """
     text: str = Field(
         title="Text to go on the button", max_length=500)
     value: str = Field(

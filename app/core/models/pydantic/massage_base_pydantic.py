@@ -12,9 +12,6 @@ class MessageBase(BaseModel):
     url: HttpUrl | None = Field(default=None, title="Url of an image")
 
 
-class MessageBaseWithID(BaseModel):
+class MessageBaseWithID(MessageBase):
     """ Message base BaseModel """
     id: int
-    type: MessageEnum
-    text: str
-    url: HttpUrl | None = Field(default=None, title="Url of an image")

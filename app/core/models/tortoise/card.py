@@ -34,6 +34,15 @@ class Card(Model):
             button_list_card=list_button
         )
 
+    async def create_button_list_in_db(self, button_list: list[ButtonPydantic]):
+        """ The list of buttons related to the card is created. """
+        for button in button_list:
+            await Button.create(
+                text=button.text,
+                value=button.value,
+                card_id=self.id
+            )
+
     class Meta:
         """ Meta """
         table = "card"

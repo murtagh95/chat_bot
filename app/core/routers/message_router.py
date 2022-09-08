@@ -2,15 +2,15 @@
 # FastAPI
 from fastapi import APIRouter, status, HTTPException
 
+# Models
 from app.core.exceptions.exceptions import RESPONSE_DICT_WITH_ERROR
 from app.core.models.pydantic.button_pydantic import ButtonPydantic
-# Models
 from app.core.models.pydantic.message_list_of_buttons import \
     MessageListOfButtons
-from app.core.models.pydantic.message_pydantic import MessagePydantic
+from app.core.models.pydantic.message_pydantic import MessagePydanticIn, \
+    MessagePydanticOut
 from app.core.models.pydantic.message_list_of_cards import MessageListOfCards
 from app.core.models.tortoise.button import Button, button_pydantic_in
-from app.core.models.tortoise.card import Card
 from app.core.models.tortoise.message import (
     Message,
     MessageEnum,
@@ -51,36 +51,26 @@ async def get_message_in_pydantic(message: Message) \
         return message
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_message(message: MessagePydantic):
+@router.post("/",
+             status_code=status.HTTP_201_CREATED,
+             response_model=MessagePydanticOut)
+async def create_message(message: MessagePydanticIn):
     new_message = await Message.create(
         type=message.type, text=message.text, url=message.url)
 
     if message.type in [MessageEnum.LIST_OF_BUTTONS,
                         MessageEnum.LIST_OF_BUTTONS_AND_IMAGE]:
-        await Button.create(
-            text=message.text_button,
-            value=message.value_button,
-            message=new_message
-        )
+        await new_message.create_button_list_in_db(message.list_button)
 
     elif message.type == MessageEnum.LIST_OF_CARDS:
-        card = await Card.create(
-            text=message.text_card,
-            url_image=message.url_card,
-            message=new_message
-        )
-        await Button.create(
-            text=message.text_button,
-            value=message.value_button,
-            card=card
-        )
+        await new_message.create_card_list_in_db(message.list_card)
     new_message = await message_pydantic.from_tortoise_orm(new_message)
     return new_message
 
 
 @router.get("/",
             status_code=status.HTTP_200_OK,
+            response_model=list[MessagePydanticOut],
             description="Get all messages")
 async def get_all_messages():
     messages = await Message.all().prefetch_related(
@@ -131,6 +121,21 @@ async def delete_message(message_id: int):
         )
     await message.delete()
     return {"detail": "Delete message"}
+
+
+@router.put("/{message_id}",
+            status_code=status.HTTP_200_OK,
+            description="Get a messages",
+            responses=RESPONSE_GET_A_MESSAGE)
+async def update_message(message_id: int, message: MessagePydanticIn):
+    message = await Message.filter(id=message_id).prefetch_related(
+        "button_message").prefetch_related('card_message').first()
+    if not message:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Message not found"
+        )
+    return await get_message_in_pydantic(message)
 
 
 @router.post("/{message_id}/button",
