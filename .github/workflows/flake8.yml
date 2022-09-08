@@ -1,0 +1,37 @@
+name: Flake8
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: [3.10.6]
+    env:
+      PIP_DISABLE_PIP_VERSION_CHECK: on
+      SECRET: example@example.com
+      EMAIL: 'example@example.com'
+      EMAIL_PASS: 'example@example.com'
+      BASE_URL: 'http:/localhost:8080'
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python_version }}
+
+    #----------------------------------------------
+    #  -----  install & configure poetry  -----
+    #----------------------------------------------
+    - name: Install Flake8
+      run: |
+        pip install flake8 
+        flake8 --max-line-length=79 --ignore=E309,E128,E501,W504,E402
