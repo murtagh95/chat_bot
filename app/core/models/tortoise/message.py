@@ -1,7 +1,6 @@
 """ Message model """
 # Tortoise
 from tortoise import Model, fields
-from tortoise.contrib.pydantic import pydantic_model_creator
 
 # Python
 from enum import Enum
@@ -31,8 +30,8 @@ class Message(Model):
     )
     text = fields.TextField(null=False)
     url = fields.CharField(max_length=200, null=True, default=None)
-    button_message: fields.ReverseRelation["Button"]
-    card_message: fields.ReverseRelation["Card"]
+    list_button: fields.ReverseRelation["Button"]
+    list_card: fields.ReverseRelation["Card"]
 
     class Meta:
         """ Meta """
@@ -57,8 +56,3 @@ class Message(Model):
                 message_id=self.id
             )
             await new_card.create_button_list_in_db(card.button_list_card)
-
-
-message_pydantic = pydantic_model_creator(Message, name="Message")
-message_pydantic_in = pydantic_model_creator(
-    Message, name="MessageIn", exclude_readonly=True)
