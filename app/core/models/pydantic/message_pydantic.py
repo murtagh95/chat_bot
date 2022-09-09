@@ -7,13 +7,19 @@ from app.core.models.tortoise.message import MessageEnum
 from app.core.models.pydantic.massage_base_pydantic import (
     MessageBase,
     MessageBaseWithID)
-from app.core.models.pydantic.button_pydantic import ButtonPydantic
-from app.core.models.pydantic.card_pydantic import CardPydantic
+from app.core.models.pydantic.button_pydantic import (
+    ButtonPydantic,
+    ButtonPydanticWithId
+)
+from app.core.models.pydantic.card_pydantic import (
+    CardPydantic,
+    CardPydanticWithId
+)
 
-
-ERROR_REQUIRED_FIELD = "{field} is required for type {type}"
-ERROR_FIELD_NOT_REQUIRED = "{field} should not be sent when it is of type " \
-                           "{type}"
+# Utils
+from app.utils.api.constants import (
+    ERROR_FIELD_NOT_REQUIRED,
+    ERROR_REQUIRED_FIELD)
 
 
 def validate_list_value_is_empty(
@@ -82,18 +88,6 @@ def validate_list_of_cards(values: dict):
                                  field="list_button")
 
 
-def validate_url_according_type(values: dict):
-    """
-    It is validated that the url is not sent for certain types of messages.
-    """
-    type_message: MessageEnum = values['type']
-    if type_message in [MessageEnum.LIST_OF_BUTTONS,
-                        MessageEnum.LIST_OF_CARDS, MessageEnum.TEXT_ONLY]:
-        if "url" in values and values["url"] is not None:
-            raise ValueError(ERROR_FIELD_NOT_REQUIRED.format(
-                field="url", type=type_message.value))
-
-
 class MessagePydanticIn(MessageBase):
     """ Message BaseModel """
     list_button: list[ButtonPydantic] = []
@@ -116,7 +110,6 @@ class MessagePydanticIn(MessageBase):
         if "type" not in values:
             # If the guy doesn't come I let pydantic return an error.
             return values
-        validate_url_according_type(values=values)
         check_dict[values["type"]](values=values)
 
         return values
@@ -153,5 +146,5 @@ class MessagePydanticIn(MessageBase):
 
 class MessagePydanticOut(MessageBaseWithID):
     """ Message BaseModel """
-    list_button: list[ButtonPydantic] = []
-    list_card: list[CardPydantic] = []
+    list_button: list[ButtonPydanticWithId] = []
+    list_card: list[CardPydanticWithId] = []
