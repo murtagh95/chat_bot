@@ -3,10 +3,12 @@
 from tortoise import Model, fields
 from tortoise.contrib.pydantic import pydantic_model_creator
 
-from app.core.models.pydantic.button_pydantic import ButtonPydantic
-from app.core.models.pydantic.card_pydantic import CardPydantic
 # Models
 from app.core.models.tortoise.button import Button
+from app.core.models.pydantic.button_pydantic import (
+    ButtonPydantic,
+    ButtonPydanticWithId)
+from app.core.models.pydantic.card_pydantic import CardPydanticWithId
 
 
 class Card(Model):
@@ -22,25 +24,46 @@ class Card(Model):
         list_button = []
         for button in self.button_list_card:
             list_button.append(
-                ButtonPydantic(
+                ButtonPydanticWithId(
+                    id=button.id,
                     text=button.text,
                     value=button.value
                 )
             )
 
-        return CardPydantic(
+        return CardPydanticWithId(
+            id=self.id,
             text=self.text,
             url_image=self.url_image,
             button_list_card=list_button
         )
 
+    async def create_button_list_in_db(self,
+                                       button_list: list[ButtonPydantic]):
+        """ The list of buttons related to the card is created. """
+        for button in button_list:
+            await Button.create(
+                text=button.text,
+                value=button.value,
+                card_id=self.id
+            )
+
+    async def update_button(self, index: int, new_button: ButtonPydantic):
+        """  """
+        old_buttons = await self.button_list_card.all()
+        old_button = old_buttons[index]
+        old_button = await old_button.update_from_dict(
+            data=new_button.dict())
+        await old_button.save(force_update=True)
+
     class Meta:
         """ Meta """
         table = "card"
+        ordering = ("id",)
 
     class PydanticMeta:
         """ Pydantic Meta """
-        computed = ("get_card_pydantic",)
+        computed = ("get_card_pydantic", "create_button_list_in_db")
 
 
 card_pydantic = pydantic_model_creator(Card, name="Card")

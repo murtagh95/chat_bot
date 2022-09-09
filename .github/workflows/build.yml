@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
   pull_request:
     branches: [ main, develop ]
 
@@ -21,6 +21,9 @@ jobs:
       EMAIL_PASS: 'example@example.com'
       BASE_URL: 'http:/localhost:8080'
 
+    #----------------------------------------------
+    #  ----------  Set Python version  ----------
+    #----------------------------------------------
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python
@@ -56,7 +59,7 @@ jobs:
       run: poetry install --no-interaction --no-root
 
     #----------------------------------------------
-    # Run tests
+    # --------------- Run tests -------------------
     #----------------------------------------------
     - name: Test with pytest
       run: |

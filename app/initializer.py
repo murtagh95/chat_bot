@@ -41,8 +41,10 @@ def init_routers(app: FastAPI):
     """
     from app.core.routers import hello
     from app.core.routers import user_router
-    from app.core.routers import message
+    from app.core.routers import message_router
 
     app.include_router(router=hello.router, prefix="/hello", tags=["hello"])
     app.include_router(router=user_router.router, prefix="/user", tags=["user"])
-    app.include_router(router=message.router, prefix="/message", tags=["message"])
+    app.include_router(router=message_router.router,
+                       prefix="/message",
+                       tags=["message"])

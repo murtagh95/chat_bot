@@ -23,6 +23,7 @@ class Button(Model):
     class Meta:
         """ Meta """
         table = "button"
+        ordering = ("id",)
 
 
 button_pydantic = pydantic_model_creator(Button, name="Button")
