@@ -30,13 +30,14 @@ class Message(Model):
         default=MessageEnum.TEXT_ONLY
     )
     text = fields.TextField(null=False)
-    url = fields.CharField(max_length=200, null=True, default='')
+    url = fields.CharField(max_length=200, null=True, default=None)
     button_message: fields.ReverseRelation["Button"]
     card_message: fields.ReverseRelation["Card"]
 
     class Meta:
         """ Meta """
         table = "message"
+        ordering = ("id",)
 
     async def create_button_list_in_db(self, button_list: list[ButtonPydantic]):
         """ The list of buttons related to the message is created. """
