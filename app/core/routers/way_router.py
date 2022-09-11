@@ -16,14 +16,17 @@ router = APIRouter()
 
 
 @router.post("/",
-             responses={**RESPONSE_DICT_WITH_ERROR},
+             responses={
+                 400: RESPONSE_DICT_WITH_ERROR[404],
+                 422: RESPONSE_DICT_WITH_ERROR[422],
+             },
              status_code=status.HTTP_201_CREATED)
 async def create_way(way: WayPydanticIn):
     try:
         await way.related_way_exist() and way.message_exist()
     except ValueError as e:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
+            status_code=status.HTTP_400_BAD_REQUEST,
             detail=e.__str__()
         )
     new_way = await Way.create(**way.dict())
@@ -66,3 +69,25 @@ async def delete_way(way_id: int):
 
     await way.delete()
     return {"detail": "Delete way"}
+
+
+@router.put("/{way_id}",
+            responses={**RESPONSE_DICT_WITH_ERROR},
+            status_code=status.HTTP_201_CREATED)
+async def update_way(way_id: int, way: WayPydanticIn):
+    old_way = await Way.filter(id=way_id).first()
+    if not old_way:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Way not found"
+        )
+    try:
+        await way.related_way_exist() and way.message_exist()
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=e.__str__()
+        )
+    new_way = await old_way.update_from_dict(data={**way.dict()})
+
+    return await way_pydantic.from_tortoise_orm(new_way)
