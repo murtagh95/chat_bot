@@ -48,7 +48,21 @@ async def get_a_way(way_id: int):
     if not way:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Message not found"
+            detail="Way not found"
         )
 
     return await way_pydantic.from_tortoise_orm(way)
+
+
+@router.delete("/{way_id}",
+               status_code=status.HTTP_200_OK)
+async def delete_way(way_id: int):
+    way = await Way.filter(id=way_id).first()
+    if not way:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Way not found"
+        )
+
+    await way.delete()
+    return {"detail": "Delete way"}
