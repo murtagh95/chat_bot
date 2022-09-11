@@ -33,11 +33,8 @@ class WayPydanticIn(BaseModel):
         Check that if the is_first field is set to true, a related_way
         is not sent.
         """
-        if values.get('is_first', None) and \
-                values.get('related_way', None) is not None:
+        if values.get('is_first', None) is True and \
+                values.get('related_way_id', None) is not None:
             raise ValueError('If it is the first way, it should not have a '
                              'related way.')
         return values
-
-    # class Config:
-    #     """ Config class """
