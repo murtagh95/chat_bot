@@ -20,3 +20,9 @@ class Way(Model):
         """ Meta """
         table = "way"
         ordering = ("id",)
+
+    # class PydanticMeta:
+    #     exclude = (
+    #         "message.list_button",
+    #         "message.list_card"
+    #     )

@@ -59,7 +59,16 @@ class Card(Model):
         """ Meta """
         table = "card"
         ordering = ("id",)
+        computed = (
+            "get_card_pydantic",
+            "create_button_list_in_db",
+            "update_button"
+        )
 
     class PydanticMeta:
         """ Pydantic Meta """
-        computed = ("get_card_pydantic", "create_button_list_in_db")
+        computed = (
+            "get_card_pydantic",
+            "create_button_list_in_db",
+            "update_button"
+        )

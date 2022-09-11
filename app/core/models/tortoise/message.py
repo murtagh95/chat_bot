@@ -33,11 +33,6 @@ class Message(Model):
     list_button: fields.ReverseRelation["Button"]
     list_card: fields.ReverseRelation["Card"]
 
-    class Meta:
-        """ Meta """
-        table = "message"
-        ordering = ("id",)
-
     async def create_button_list_in_db(self, button_list: list[ButtonPydantic]):
         """ The list of buttons related to the message is created. """
         for button in button_list:
@@ -56,3 +51,12 @@ class Message(Model):
                 message_id=self.id
             )
             await new_card.create_button_list_in_db(card.button_list_card)
+
+    class Meta:
+        """ Meta """
+        table = "message"
+        computed = ("create_button_list_in_db", "create_card_list_in_db")
+        ordering = ("id",)
+
+    class PydanticMeta:
+        computed = ("create_button_list_in_db", "create_card_list_in_db")
