@@ -37,4 +37,8 @@ class WayPydanticIn(BaseModel):
                 values.get('related_way_id', None) is not None:
             raise ValueError('If it is the first way, it should not have a '
                              'related way.')
+        if values.get('is_first', None) is False and \
+                values.get('related_way_id', None) is None:
+            raise ValueError('If it is not the first way, it is required '
+                             'that it has a related way.')
         return values
