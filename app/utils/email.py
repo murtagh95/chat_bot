@@ -15,9 +15,9 @@ from app.core.models.tortoise.user import User
 
 
 conf = ConnectionConfig(
-    MAIL_USERNAME=os.getenv("EMAIL", ""),
-    MAIL_PASSWORD=os.getenv("EMAIL_PASS", ""),
-    MAIL_FROM=os.getenv("EMAIL", ""),
+    MAIL_USERNAME=os.getenv("EMAIL", "aaa@aaa.com"),
+    MAIL_PASSWORD=os.getenv("EMAIL_PASS", "aaaa"),
+    MAIL_FROM=os.getenv("EMAIL", "aaa@aaa.com"),
     MAIL_PORT=587,
     MAIL_SERVER="smtp.gmail.com",
     MAIL_TLS=True,
