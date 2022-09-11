@@ -1,7 +1,6 @@
 """ Card model """
 # Tortoise
 from tortoise import Model, fields
-from tortoise.contrib.pydantic import pydantic_model_creator
 
 # Models
 from app.core.models.tortoise.button import Button
@@ -17,7 +16,7 @@ class Card(Model):
     text = fields.TextField(null=False)
     url_image = fields.CharField(max_length=200, null=False)
     message = fields.ForeignKeyField(
-        "models.Message", related_name="card_message")
+        "models.Message", related_name="list_card")
     button_list_card: fields.ReverseRelation["Button"]
 
     def get_card_pydantic(self):
@@ -60,12 +59,16 @@ class Card(Model):
         """ Meta """
         table = "card"
         ordering = ("id",)
+        computed = (
+            "get_card_pydantic",
+            "create_button_list_in_db",
+            "update_button"
+        )
 
     class PydanticMeta:
         """ Pydantic Meta """
-        computed = ("get_card_pydantic", "create_button_list_in_db")
-
-
-card_pydantic = pydantic_model_creator(Card, name="Card")
-card_pydantic_in = pydantic_model_creator(
-    Card, name="CardIn", exclude_readonly=True)
+        computed = (
+            "get_card_pydantic",
+            "create_button_list_in_db",
+            "update_button"
+        )

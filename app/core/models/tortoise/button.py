@@ -1,7 +1,6 @@
 """ Button model """
 # Tortoise
 from tortoise import Model, fields
-from tortoise.contrib.pydantic import pydantic_model_creator
 
 
 class Button(Model):
@@ -11,7 +10,7 @@ class Button(Model):
     value = fields.CharField(max_length=200, null=False)
     message = fields.ForeignKeyField(
         "models.Message",
-        related_name="button_message",
+        related_name="list_button",
         null=True
     )
     card = fields.ForeignKeyField(
@@ -24,8 +23,3 @@ class Button(Model):
         """ Meta """
         table = "button"
         ordering = ("id",)
-
-
-button_pydantic = pydantic_model_creator(Button, name="Button")
-button_pydantic_in = pydantic_model_creator(
-    Button, name="ButtonIn", exclude_readonly=True)
