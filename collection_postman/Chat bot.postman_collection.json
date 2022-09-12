@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "0491b286-4750-4ca6-a77d-aedf235bfb86",
+		"name": "Chat bot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22999191"
+	},
+	"item": [
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Create Message",
+					"item": [
+						{
+							"name": "Create Message [ text_only ]",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"text_only\",\n  \"text\": \"Any text\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/messages/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Message [ list_of_cards ]",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"list_of_cards\",\n  \"text\": \"Any text\",\n  \"list_card\": [\n    {\n      \"text\": \"Any text\",\n      \"url_image\": \"https://google.com/image.png\",\n      \"button_list_card\": [\n        {\n          \"text\": \"Any text\",\n          \"value\": \"Any\"\n        }\n      ]\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/messages/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Message [ list_of_buttons ]",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"list_of_buttons\",\n  \"text\": \"Any text\",\n  \"list_button\": [\n    {\n      \"text\": \"Any text\",\n      \"value\": \"Any\"\n    },\n    {\n      \"text\": \"Any text2\",\n      \"value\": \"Any2\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/messages/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Message [ list_of_buttons_and_image ]",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"list_of_buttons_and_image\",\n  \"text\": \"Any text\",\n  \"url\": \"https://google.com/image.png\",\n  \"list_button\": [\n    {\n      \"text\": \"Any text\",\n      \"value\": \"Any\"\n    },\n    {\n      \"text\": \"Any text2\",\n      \"value\": \"Any2\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/messages/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Message [ text_and_image ]",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"type\": \"text_and_image\",\n  \"text\": \"Any text\",\n  \"url\": \"https://google.com/image.png\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/messages/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get all Message",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/messages/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messages",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Message",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/messages/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messages",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Message",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"text_only\",\n  \"text\": \"Hola a todo el mundo\",\n  \"url\": \"https://google.com/image.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/messages/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messages",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Card",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Any text\",\n    \"url_image\": \"https://google.com/image.png\",\n    \"button_list_card\": [\n        {\n            \"text\": \"11\",\n            \"value\": \"11\"\n        },\n        {\n            \"text\": \"22\",\n            \"value\": \"22\"\n        },\n        {\n            \"text\": \"333\",\n            \"value\": \"333\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/messages/2/card/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messages",
+								"2",
+								"card",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Message change type",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"text_and_image\",\n  \"text\": \"Chau a todo el mundo\",\n  \"url\": \"https://google.com/image.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/messages/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messages",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add card to message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Any text\",\n    \"url_image\": \"https://google.com/image.png\",\n    \"button_list_card\": [\n        {\n            \"text\": \"Any text\",\n            \"value\": \"Any\"\n        },\n        {\n            \"text\": \"Hola\",\n            \"value\": \"Chayu\"\n        },\n        {\n            \"text\": \"Hola111\",\n            \"value\": \"Chayu1111\"\n        }\n    ]\n        \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/messages/2/card",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messages",
+								"2",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add button to message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"text\": \"22222\",\n  \"value\": \"33333\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/messages/3/button",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messages",
+								"3",
+								"button"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update button",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"text\": \"11111111111\",\n    \"value\": \"11111111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/messages/3/button/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messages",
+								"3",
+								"button",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ways",
+			"item": [
+				{
+					"name": "Get all Ways",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/ways/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ways",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Way",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"is_first\": true,\n  \"condition\": \"string\",\n  \"message_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ways/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ways",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Way",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/ways/9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ways",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Way",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/ways/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ways",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Way",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_first\": true,\n    \"condition\": \"esta es la mejor condicion\",\n    \"message_id\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ways/9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ways",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
