@@ -1,6 +1,6 @@
 all: up
 
-TEST_PATH=./tests
+TEST_PATH=./app/tests
 CONTAINER := docker compose -f docker-compose.yml
 CONTAINER_SERVER := server
 
